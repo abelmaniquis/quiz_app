@@ -23,19 +23,18 @@ h1{
     margin-left:auto;
     margin-right:auto;
     width:500px;
-    height:150px;
+    height:450px;
     font-family: 'Roboto', sans-serif;
-    padding-bottom:334px;
     text-align:center;
-}
-
-#answer_container{
-    
+    position:relative;
 }
 
 li{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    cursor:pointer;
     list-style-type:none;
-    display:inline-block;
 }
 
 #button_container{
@@ -49,4 +48,16 @@ li{
     border-radius:8px;
     color:yellow;
     cursor:pointer;
+}
+
+#startbutton{
+    background-color:black;
+    color:yellow;
+}
+
+#endgame p{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    font-family: 'Roboto', sans-serif;
 }
