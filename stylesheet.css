@@ -1,0 +1,49 @@
+
+
+body{
+    background-color:#404040;
+    background-image:url(images/2016_logo.jpg);
+    background-repeat:no-repeat;
+    background-position:center;
+    margin-top:300px;
+    color:yellow;
+}
+
+@font-face {
+    font-family: BatmanForever;
+    src: url('images/BatmanForeverAlternate.ttf');
+}
+
+h1{
+    font-family:BatmanForever;
+    position:relative;
+    text-align:center;
+}
+#game{
+    margin-left:400px;
+    margin-right:400px;
+    padding-bottom:334px;
+    text-align:center;
+}
+
+#answer-holder{
+    
+}
+
+#answer{
+    margin:0;
+    padding:0;
+    vertical-align:baseline;
+}
+#button-holder{
+    padding-top:25px;
+    margin-top:20px;
+}
+
+
+ul{
+    position:center;
+}
+li{
+    list-style-type:none;
+}
