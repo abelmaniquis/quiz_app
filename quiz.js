@@ -39,8 +39,11 @@ function loadGame(){
     $('#button_container').empty();
     $(".question").empty()
     $('.question').append(questionarray[0].statement);
-    for(var i = 0; i < questionarray[0].choices.length;i++){
-    $('#choices').append("<li>" + questionarray[0].choices[i] + "</li>")
+    for(var i = 0; i < questionarray.length;i++){
+        for(var j = 0; j < questionarray[j].choices.length;j++)
+            {
+                $('#choices').append("<li>" + questionarray[0].choices[j] + "</li>");
+            }
     }
 }
 
