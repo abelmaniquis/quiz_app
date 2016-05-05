@@ -28,7 +28,7 @@ var questionarray = [
          answer: "Tales of the Batman"
         
     }];
-  
+
 
 function initialState(){
     $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>");
@@ -44,8 +44,11 @@ function loadGame(){
             }
     $("li").click(loadquestiontwo);
     $("li").click(function(){
-        var test = $(this).index();
-        console.log(test);
+        alert($(this).html()===questionarray[0].answer)
+        if($(this).html()===questionarray[0].answer)
+        {
+            score ++;
+        };
     });
 }
 
@@ -57,6 +60,13 @@ function loadquestiontwo(){
                 $('#choices').append("<li>" + questionarray[1].choices[i] + "</li>");
             }
     $("li").click(loadquestionthree);
+    $("li").click(function(){
+        alert($(this).html()===questionarray[1].answer)
+        if($(this).html()===questionarray[1].answer)
+        {
+            score ++;
+        };
+    });
 }
 
 
@@ -69,7 +79,13 @@ function loadquestionthree(){
                 $('#choices').append("<li>" + questionarray[2].choices[i] + "</li>");
             }
     $("li").click(loadquestionfour);
-    score += 1
+    $("li").click(function(){
+        alert($(this).html())
+        if($(this).html()===questionarray[2].answer)
+        {
+            score ++;
+        };
+    });
 }
 
 function loadquestionfour(){
@@ -81,7 +97,13 @@ function loadquestionfour(){
                 $('#choices').append("<li>" + questionarray[3].choices[i] + "</li>");
             }
     $("li").click(loadquestionfive);
-    score += 1
+    $("li").click(function(){
+        alert($(this).html())
+        if($(this).html()===questionarray[3].answer)
+        {
+            score ++;
+        };
+    });
 }
 
 function loadquestionfive(){
@@ -93,18 +115,26 @@ function loadquestionfive(){
                 $('#choices').append("<li>" + questionarray[4].choices[i] + "</li>");
             }
     $("li").click(endGame);
-    score += 1
+    $("li").click(function(){
+        alert($(this).html()===questionarray[4].answer)
+        if($(this).html()===questionarray[4].answer)
+        {
+            score ++;
+        };
+    });
 }
 
-function evaluateGuess(input,question){
+/*function evaluateGuess(input,question){
     if(input === question.answer){
         score ++;
     }
-};
+};*/
  
 function endGame(){
+  $('body').css('background-color','black');
+  $('body').css('background-image','url(images/final-background.jpg)');
   $(".question").empty().append("<h2>Thank you for playing!</h2>");
   $("ul").empty();
-  $('#button_container').append("your score is: " + score);
+  $('#button_container').append("your score is: " + score + "/5");
 };
 //console.log(evaluateGuess("two years",questionarray[0].choices[1]))

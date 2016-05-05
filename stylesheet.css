@@ -22,8 +22,9 @@ h1{
 #game{
     margin-left:auto;
     margin-right:auto;
+    margin-bottom:auto;
     width:500px;
-    height:450px;
+    height:475px;
     font-family: 'Roboto', sans-serif;
     text-align:center;
     position:relative;
@@ -36,6 +37,10 @@ li{
     text-align:center;
     cursor:pointer;
     list-style-type:none;
+}
+
+li:hover{
+    color:white;
 }
 
 #button_container{
