@@ -32,7 +32,7 @@ var questionarray = [
 
 function initialState(){
     $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>");
-    $("#btn1").click(loadGame);
+    $(".btn1").click(loadGame);
 };
 
 function loadGame(){
@@ -44,7 +44,7 @@ function loadGame(){
             }
     $("li").click(loadquestiontwo);
     $("li").click(function(){
-        alert($(this).html()===questionarray[0].answer)
+        //alert($(this).html()===questionarray[0].answer)
         if($(this).html()===questionarray[0].answer)
         {
             score ++;
@@ -61,7 +61,7 @@ function loadquestiontwo(){
             }
     $("li").click(loadquestionthree);
     $("li").click(function(){
-        alert($(this).html()===questionarray[1].answer)
+        //alert($(this).html()===questionarray[1].answer)
         if($(this).html()===questionarray[1].answer)
         {
             score ++;
@@ -80,7 +80,7 @@ function loadquestionthree(){
             }
     $("li").click(loadquestionfour);
     $("li").click(function(){
-        alert($(this).html())
+        //alert($(this).html())
         if($(this).html()===questionarray[2].answer)
         {
             score ++;
@@ -98,7 +98,7 @@ function loadquestionfour(){
             }
     $("li").click(loadquestionfive);
     $("li").click(function(){
-        alert($(this).html())
+        //alert($(this).html())
         if($(this).html()===questionarray[3].answer)
         {
             score ++;
@@ -116,7 +116,7 @@ function loadquestionfive(){
             }
     $("li").click(endGame);
     $("li").click(function(){
-        alert($(this).html()===questionarray[4].answer)
+       // alert($(this).html()===questionarray[4].answer)
         if($(this).html()===questionarray[4].answer)
         {
             score ++;
@@ -135,6 +135,11 @@ function endGame(){
   $('body').css('background-image','url(images/final-background.jpg)');
   $(".question").empty().append("<h2>Thank you for playing!</h2>");
   $("ul").empty();
-  $('#button_container').append("your score is: " + score + "/5");
+  $('ul').append("your score is: " + score + "/5");
+  $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
+  $(".btn1").click(loadGame);
+  $(".btn1").click(function(){
+      score = 0;
+  });
 };
 //console.log(evaluateGuess("two years",questionarray[0].choices[1]))

@@ -46,7 +46,7 @@ li:hover{
 #button_container{
     padding-top:20px;
 }
-#btn1{
+.btn1{
     background-color:black;
     color:yellow;
     font-family:BatmanForever;
