@@ -23,26 +23,26 @@ var questionarray = [
          answer: "12 miles"
         
     },{
-             statement:'Which anthology contains a Batman Story by Isaac Asimov, who has been called the "grandfather of science fiction"?',
+         statement:'Which anthology contains a Batman Story by Isaac Asimov, who has been called the "grandfather of science fiction"?',
          choices:["Tales of the Batman","The Adventures of the Batman","The Further Adventures of Batman, Vol 3","Legends of the Batman"],
          answer: "Tales of the Batman"
         
     }];
-
- $("#startbutton").click(nextQuestion);
+  
 
 function initialState(){
-    
-    $("#game").empty();
-    $("#game").append("<h2>Welcome to the Batman App</h2>");
-    $("#game").append("Press 'Start' or hit enter to play.");
-    $("#game").append("<button id='startbutton'>" + "Start" + "</button>")
-    
+    $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>");
+    $("#btn1").click(loadGame);
 };
 
-function nextQuestion(){
-    ("#game").empty();
-};
+function loadGame(){
+    $('#button_container').empty();
+    $(".question").empty()
+    $('.question').append(questionarray[0].statement);
+    for(var i = 0; i < questionarray[0].choices.length;i++){
+    $('#choices').append("<li>" + questionarray[0].choices[i] + "</li>")
+    }
+}
 
 function evaluateGuess(input,question){
     if(input === question.answer){
@@ -55,7 +55,7 @@ function evaluateGuess(input,question){
 };
  
 function endGame(){
-  $("#game").empty();
-  $("#game").append("<h2>Thank you for playing!</h2>");
-  ("")
+  //$(".question").empty();
+  $(".question").append("<h2>Thank you for playing!</h2>");
 };
+//console.log(evaluateGuess("two years",questionarray[0].choices[1]))
