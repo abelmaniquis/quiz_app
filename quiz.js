@@ -37,28 +37,74 @@ function initialState(){
 
 function loadGame(){
     $('#button_container').empty();
-    $(".question").empty()
-    $('.question').append(questionarray[0].statement);
-    for(var i = 0; i < questionarray.length;i++){
-        for(var j = 0; j < questionarray[j].choices.length;j++)
+    $(".question").empty().append(questionarray[0].statement);
+        for(var i = 0; i < questionarray[0].choices.length;i++)
             {
-                $('#choices').append("<li>" + questionarray[0].choices[j] + "</li>");
+                $('#choices').append("<li>" + questionarray[0].choices[i] + "</li>");
             }
-    }
+    $("li").click(loadquestiontwo);
+    $("li").click(function(){
+        var test = $(this).index();
+        console.log(test);
+    });
+}
+
+function loadquestiontwo(){
+     $('ul').empty();
+     $(".question").empty().append(questionarray[1].statement);
+        for(var i = 0; i < questionarray[1].choices.length;i++)
+            {
+                $('#choices').append("<li>" + questionarray[1].choices[i] + "</li>");
+            }
+    $("li").click(loadquestionthree);
+}
+
+
+function loadquestionthree(){
+     $('#button_container').empty();
+      $('ul').empty();
+      $(".question").empty().append(questionarray[2].statement);
+        for(var i = 0; i < questionarray[2].choices.length;i++)
+            {
+                $('#choices').append("<li>" + questionarray[2].choices[i] + "</li>");
+            }
+    $("li").click(loadquestionfour);
+    score += 1
+}
+
+function loadquestionfour(){
+     $('#button_container').empty();
+      $('ul').empty();
+      $(".question").empty().append(questionarray[3].statement);
+        for(var i = 0; i < questionarray[3].choices.length;i++)
+            {
+                $('#choices').append("<li>" + questionarray[3].choices[i] + "</li>");
+            }
+    $("li").click(loadquestionfive);
+    score += 1
+}
+
+function loadquestionfive(){
+     $('#button_container').empty();
+      $('ul').empty();
+      $(".question").empty().append(questionarray[4].statement);
+        for(var i = 0; i < questionarray[4].choices.length;i++)
+            {
+                $('#choices').append("<li>" + questionarray[4].choices[i] + "</li>");
+            }
+    $("li").click(endGame);
+    score += 1
 }
 
 function evaluateGuess(input,question){
     if(input === question.answer){
-        console.log("correct")
         score ++;
-    }
-    else{
-        console.log("incorrect");
     }
 };
  
 function endGame(){
-  //$(".question").empty();
-  $(".question").append("<h2>Thank you for playing!</h2>");
+  $(".question").empty().append("<h2>Thank you for playing!</h2>");
+  $("ul").empty();
+  $('#button_container').append("your score is: " + score);
 };
 //console.log(evaluateGuess("two years",questionarray[0].choices[1]))
