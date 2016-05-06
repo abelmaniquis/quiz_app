@@ -64,3 +64,6 @@ li:hover{
     text-align:center;
     font-family: 'Roboto', sans-serif;
 }
+#choices{
+    padding-left:0;
+}

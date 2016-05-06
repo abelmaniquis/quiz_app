@@ -29,7 +29,9 @@ var questionarray = [
         
     }];
 
-
+/*--------------------------------------------------------------
+opening screen
+--------------------------------------------------------------*/
 function initialState(){
     $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>");
     $(".btn1").click(loadGame);
