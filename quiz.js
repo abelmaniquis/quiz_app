@@ -78,11 +78,11 @@ function question() {
   $(".btn1") ? $(".btn1").hide() : false;           //ternary operator. if btn1 exists, hide btn1, else, keep it there
 
   if (currentQuestion < questionarray.length) {     // If the current question's index is less than the number of questions
-    $('.question').text(questionarray[currentQuestion].statement);            // 
-    var i = 0
-    while(i < questionarray[currentQuestion].choices.length)
+    $('.question').text(questionarray[currentQuestion].statement);            // changes the question to the next one
+    var i = 0                                                                 //iterates through the next loop
+    while(i < questionarray[currentQuestion].choices.length)                  //loop through number of questions
     {
-      $('#choices').append("<li>" + questionarray[currentQuestion].choices[i] + "</li>");
+      $('#choices').append("<li>" + questionarray[currentQuestion].choices[i] + "</li>"); //choices get listed
       i ++;
     }
   } else {
@@ -110,9 +110,9 @@ Posts final screen
 function endGame() {
   $('body')
     .css('background-color', 'black')                               //background change
-    .css('background-image', 'url(images/final-background.jpg)');
+    .css('background-image', 'url(images/final-background.jpg)');   
 
-  $(".question").empty().append("<h2>Thank you for playing!</h2>");
+  $(".question").empty().append("<h2>Thank you for playing!</h2>"); //empty questions
   
   $("ul").append("your score is: " + score + "/" + questionarray.length);
 
