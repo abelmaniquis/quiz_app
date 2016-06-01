@@ -1,4 +1,6 @@
   "use strict";
+  
+//models
   var score = 0;
   var currentQuestion = 0;
   var questionarray = [{
@@ -52,6 +54,7 @@
 
 /*--------------------------------------------------------------
 opening screen
+View
 --------------------------------------------------------------*/
 initialState();
 
@@ -64,6 +67,7 @@ function initialState() {
 };
 /*-----------------------------------------
 removes the answer list and the question
+controller:
 -------------------------------------------*/
 function clear() {
   $('ul').empty();  //empties the answer list
@@ -72,6 +76,7 @@ function clear() {
 
 /*-------------------------------------------
 places question into the game
+Controllwe:
 --------------------------------------------*/
 function question() {
 
@@ -91,6 +96,7 @@ function question() {
 }
 /*------------------------------------------------
 checks to see if answer is correct.
+Model:
 ------------------------------------------------*/
 
 function validate() {
@@ -106,6 +112,7 @@ question();        //load next question
 
 /*----------------------------------
 Posts final screen
+View
 ---------------------------------*/
 function endGame() {
   $('body')
@@ -122,6 +129,7 @@ function endGame() {
 
 /*---------------------------------------------------------
 starts the game over
+Model
 -----------------------------------------------------------*/
 
 function newGame(){
