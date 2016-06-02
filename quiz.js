@@ -1,6 +1,7 @@
   "use strict";
   
-//models
+//model
+
   var score = 0;
   var currentQuestion = 0;
   var questionarray = [{
@@ -76,7 +77,7 @@ function clear() {
 
 /*-------------------------------------------
 places question into the game
-Controllwe:
+Controller:
 --------------------------------------------*/
 function question() {
 
