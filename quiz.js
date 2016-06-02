@@ -1,6 +1,8 @@
   "use strict";
   
-//model
+/*-----------------------------------------------------
+MODEL:
+------------------------------------------------------*/
 
   var score = 0;
   var currentQuestion = 0;
@@ -53,9 +55,24 @@
   answer: "The Bat-Bunker"
 }];
 
+/*-----------------------------------------------------
+checks to see if answer is correct.
+Model:
+------------------------------------------------------*/
+
+function validate() {
+  if (currentQuestion > questionarray.length) { //If the question number exceeds the number of questions
+    return 0;                                     //return 0;
+  }else if ($(this).html() === questionarray[currentQuestion].answer) { //If the element represented is equal to the answer
+    score++;    // add to the score.
+  }
+currentQuestion++; //currentQuestion iterates
+clear();           //clear all current items from the game
+question();        //load next question
+}
+
 /*--------------------------------------------------------------
-opening screen
-View
+VIEW
 --------------------------------------------------------------*/
 initialState();
 
@@ -66,18 +83,27 @@ function initialState() {
     validate.apply(this); // Run the validate function on the InitialState
   });
 };
-/*-----------------------------------------
-removes the answer list and the question
-controller:
--------------------------------------------*/
+
 function clear() {
   $('ul').empty();  //empties the answer list
   $(".question").empty();   //clears the question
 }
 
+function endGame() {
+  $('body')
+    .css('background-color', 'black')                               //background change
+    .css('background-image', 'url(images/final-background.jpg)');   
+
+  $(".question").empty().append("<h2>Thank you for playing!</h2>"); //empty questions
+  
+  $("ul").append("your score is: " + score + "/" + questionarray.length);
+
+  $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
+  $('.btn1').click(newGame);
+};
+
 /*-------------------------------------------
-places question into the game
-Controller:
+CONTROLLER
 --------------------------------------------*/
 function question() {
 
@@ -95,43 +121,6 @@ function question() {
     endGame();
   }
 }
-/*------------------------------------------------
-checks to see if answer is correct.
-Model:
-------------------------------------------------*/
-
-function validate() {
-  if (currentQuestion > questionarray.length) { //If the question number exceeds the number of questions
-    return 0;                                     //return 0;
-  }else if ($(this).html() === questionarray[currentQuestion].answer) { //If the element represented is equal to the answer
-    score++;    // add to the score.
-  }
-currentQuestion++; //currentQuestion iterates
-clear();           //clear all current items from the game
-question();        //load next question
-}
-
-/*----------------------------------
-Posts final screen
-View
----------------------------------*/
-function endGame() {
-  $('body')
-    .css('background-color', 'black')                               //background change
-    .css('background-image', 'url(images/final-background.jpg)');   
-
-  $(".question").empty().append("<h2>Thank you for playing!</h2>"); //empty questions
-  
-  $("ul").append("your score is: " + score + "/" + questionarray.length);
-
-  $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
-  $('.btn1').click(newGame);
-};
-
-/*---------------------------------------------------------
-starts the game over
-Model
------------------------------------------------------------*/
 
 function newGame(){
   $('body').css('background-color','#404040')               //revert background

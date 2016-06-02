@@ -39,30 +39,22 @@ How App will behave:
 6/1/2016:
 REFACTORING FOR MVC:
 
-score, 
-currentQuestion, 
-questionarray
-
 
 functions:
-
-initialState(): Creates front page upon opening the app.
-
-clear(): Empties a section when it is done being used.
-
-question(): Writes the question on the screen.
-
-validate(): Checks to see if the question is correct, iterates question number,clears out question, and loads next question
-
-endGame(): Displays finishing screen.
-
-newGame(): starts game over, resets all parameters.
 
 
 
 MODEL:
-score
-currentquestion
+score, 
+currentQuestion, 
 questionarray
+validate(): Checks to see if the question is correct, iterates question number,clears out question, and loads next question
 
 VIEWS:
+initialState(): Creates front page upon opening the app.
+clear(): Empties a section when it is done being used.
+endGame(): Displays finishing screen.
+
+CONTROLLERS:
+question(): Writes the question on the screen.
+newGame(): starts game over, resets all parameters.
