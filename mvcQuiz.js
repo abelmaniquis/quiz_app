@@ -1,8 +1,8 @@
-var quiz = [{
+var Quiz = [{
   statement: 'According to Batman Vol.1 #673, how long did Bruce Wayne train with "Ninja shadow masters" in the far east?',
   choices: ["one year", "two years", "five years", "eight years"],
   answer: "two years"
-
+  
 }, {
   statement: 'Dick Grayson chose "Robin" as his first superhero alias. What was the original reason for this?',
   choices: ["His mother nicknamed him Robin since he once leaped through the air to save his brother", "He intended to emulate Robin Hood", "It was his nickname when  he was performing with the circus.", "His mother nicknamed him Robin because he was born in the first day of Spring"],
@@ -46,68 +46,97 @@ var quiz = [{
   choices: ["Batcave II", "Neo-Batcave", "The Bat-Bunker", "Batcave Beta"],
   answer: "The Bat-Bunker"
 }];
+/*-----------------------------------------------------
+MODEL
+-------------------------------------------------------*/
 
-quiz.Model = function(){
-  this.score = 0;
-  this.currentQuestion = 0;
+Quiz.Model = function(){
+this.score = 0;
+this.currentQuestion = 0;
 };
 
-quiz.Model.prototype.validate = function(quiz){
-  console.log("EEEEEEEEEEE");
-  if(this.currentQuestion > this.questionarray.length){
+Quiz.Model.prototype.validate = function(quiz){ //This is the part to figure out
+  if(this.currentQuestion > this.length){
     return 0;
-  }else if($(this).html ===quiz[this.currentQuestion].answer){
-   this.score++; 
+  }
+  else if($(this).html() === quiz[this.currentQuestion].answer){
+   this.score++;
   }
 };
 
+/*----------------------------------------------
+VIEW
+-----------------------------------------------*/
 
-
-quiz.View = function(){
-  this.initialState();
+Quiz.View = function(){
+    this.initialState();
 };
 
-quiz.View.prototype.initialState = function(){
+Quiz.View.prototype.initialState = function(){
+  var i = 0;
+  console.log(this);
   $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start to play.</p>");
-  $(".btn1").click(this.question);
+  $(".btn1").click(function(){
+    console.log(Quiz)
+  }); 
   $("#choices").on('click','li', function(){
-    this.validate.apply(this);
+    //this.validate();
   })
-  
 };
 
-quiz.View.prototype.clear = function(){
+Quiz.View.prototype.clear = function(){
   $('ul').empty();
   $(".question").empty();
 };
 
-quiz.View.prototype.endGame = function(){
+Quiz.View.prototype.endGame = function(){
   $('body')
   .css('background-color', 'black')                               //background change
   .css('background-image', 'url(images/final-background.jpg)');   
 
   $(".question").empty().append("<h2>Thank you for playing!</h2>"); //empty questions
   
-  $("ul").append("your score is: " + this.score + "/" + this.questionarray.length);
+  $("ul").append("your score is: " + this.score + "/" + this.length);
 
   $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
-  $('.btn1').click(quiz.newGame);
+  $('.btn1').click(Quiz.newGame);
 };
 
-quiz.Controller = function(){
-  
+
+/*--------------------------------------------
+CONTROLLER
+----------------------------------------------*/
+Quiz.Controller = function(model,view){
+ console.log(model);
+ console.log(view);
 };
 
-quiz.Controller.prototype.question = function(){
+Quiz.Controller.prototype.question = function(model,view){
+  $(".btn1") ? $(".btn1").hide() : false;
   
+  if(model.currentQuestion < this.length){
+    $('.question').text(this[model.currentQuestion].choices.length)
+    var i = 0;
+    while(i < Quiz[this.currentQuestion].choices.length){
+      $('#choices').append('<li>' + this[this.currentQuestion].choices[i] + "</li>");
+      i++;
+    }
+  }else{
+    this.endGame;
+  };
 };
 
-quiz.Controller.prototype.newGame = function(model,view){
-  
+Quiz.Controller.prototype.newGame = function(model,view){
+   $('body').css('background-color','#404040')
+   .css('background-image','url(images/2016_logo.jpg)');   //revert background
+    this.clear();                                                //clear form, reset score and questions
+    this.score = 0;
+    this.currentQuestion = 0;
+    this.question();                                             
 };
 
 document.addEventListener('DOMContentLoaded', function(){
-  var model = new quiz.Model();
-  var view = new quiz.View();
-  var controller = new quiz.Controller(model,view);
+  var model = new Quiz.Model();
+  var view = new Quiz.View();
+  var controller = new Quiz.Controller(model,view);
 });
