@@ -4,8 +4,7 @@
 MODEL:
 ------------------------------------------------------*/
 
-  var score = 0;
-  var currentQuestion = 0;
+  
   var questionarray = [{
   statement: 'According to Batman Vol.1 #673, how long did Bruce Wayne train with "Ninja shadow masters" in the far east?',
   choices: ["one year", "two years", "five years", "eight years"],
@@ -60,37 +59,40 @@ checks to see if answer is correct.
 Model:
 ------------------------------------------------------*/
 
-function validate() {
+questionarray.Model = function(){
+  var score = 0;
+  var currentQuestion = 0;
+}
+
+questionarray.Model.validate = function(score,currentQuestion){
   if (currentQuestion > questionarray.length) { //If the question number exceeds the number of questions
     return 0;                                     //return 0;
   }else if ($(this).html() === questionarray[currentQuestion].answer) { //If the element represented is equal to the answer
     score++;    // add to the score.
   }
 currentQuestion++; //currentQuestion iterates
-clear();           //clear all current items from the game
+clear(currentQuestion);           //clear all current items from the game
 question();        //load next question
 }
-
-
 
 /*--------------------------------------------------------------
 VIEW
 --------------------------------------------------------------*/
 
+questionarray.Model = function(){
+  var score = 0;
+  var currentQuestion = 0;
+}
+
 questionarray.View = function(){
-  initialState();
+  this.initialState();
 };
 
-document.addEventListener('DOMContentLoaded', function(){
-  var view = new questionarray.View();
-});
-
-
-function initialState() {
+questionarray.View.prototype.initialState = function(){
   $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
   $(".btn1").click(question);             //when .btn1 is clicked, it loads the question function.
   $('#choices').on('click', 'li', function () { //when an li element is clicked, 
-    validate.apply(this); // Run the validate function on the InitialState
+    this.validate.apply(this); // Run the validate function on the InitialState
   });
 };
 
@@ -115,7 +117,7 @@ function endGame() {
 /*-------------------------------------------
 CONTROLLER
 --------------------------------------------*/
-function question() {
+function question(currentQuestion) {
 
   $(".btn1") ? $(".btn1").hide() : false;           //ternary operator. if btn1 exists, hide btn1, else, keep it there
 
@@ -132,7 +134,7 @@ function question() {
   }
 }
 
-function newGame(){
+function newGame(score,currentQuestion){
   $('body').css('background-color','#404040')               //revert background
     .css('background-image','url(images/2016_logo.jpg)');   //revert background
     clear();                                                //clear form, reset score and questions
@@ -140,3 +142,8 @@ function newGame(){
     currentQuestion = 0;
     question();                                             //Loads next question (question 1, since currentQuestion has been reset)
 };
+
+document.addEventListener('DOMContentLoaded', function(){
+  var model = new questionarray.Model();
+  var view = new questionarray.View();
+});
