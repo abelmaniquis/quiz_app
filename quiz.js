@@ -71,10 +71,20 @@ clear();           //clear all current items from the game
 question();        //load next question
 }
 
+
+
 /*--------------------------------------------------------------
 VIEW
 --------------------------------------------------------------*/
-initialState();
+
+questionarray.View = function(){
+  initialState();
+};
+
+document.addEventListener('DOMContentLoaded', function(){
+  var view = new questionarray.View();
+});
+
 
 function initialState() {
   $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction

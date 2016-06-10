@@ -1,8 +1,8 @@
+
 var Quiz = [{
   statement: 'According to Batman Vol.1 #673, how long did Bruce Wayne train with "Ninja shadow masters" in the far east?',
   choices: ["one year", "two years", "five years", "eight years"],
   answer: "two years"
-  
 }, {
   statement: 'Dick Grayson chose "Robin" as his first superhero alias. What was the original reason for this?',
   choices: ["His mother nicknamed him Robin since he once leaped through the air to save his brother", "He intended to emulate Robin Hood", "It was his nickname when  he was performing with the circus.", "His mother nicknamed him Robin because he was born in the first day of Spring"],
@@ -42,7 +42,7 @@ var Quiz = [{
   choices: ["Hawkman", "Superman", "Green Lantern", "All of the above"],
   answer: "All of the above"
 }, {
-  statement: "During his time as Batman, Dick Grayson did not use the prime Batcav beneath Wayne Manor but instead used a similar facility Bruce had once kept in the sub-basement of the Wayne Foundation central building. What did Dick call his secret lair?",
+  statement: "During his time as Batman, Dick Grayson did not use the prime Batcave beneath Wayne Manor but instead used a similar facility Bruce had once kept in the sub-basement of the Wayne Foundation central building. What did Dick call his secret lair?",
   choices: ["Batcave II", "Neo-Batcave", "The Bat-Bunker", "Batcave Beta"],
   answer: "The Bat-Bunker"
 }];
@@ -62,6 +62,9 @@ Quiz.Model.prototype.validate = function(quiz){ //This is the part to figure out
   else if($(this).html() === quiz[this.currentQuestion].answer){
    this.score++;
   }
+this.currentQuestion++;
+this.clear();
+this.question();
 };
 
 /*----------------------------------------------
@@ -70,47 +73,40 @@ VIEW
 
 Quiz.View = function(){
     this.initialState();
+  $(".btn1").click(function()
+  { 
+    $('.question').empty();
+    $('.question').append('<p>' + Quiz[0].statement + '</p>');
+  });
+    $("#choices").on('click','li', function(){
+    this.moveQuestion();
+  })
+    
 };
 
 Quiz.View.prototype.initialState = function(){
   var i = 0;
   console.log(this);
   $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start to play.</p>");
-  $(".btn1").click(function(){
-    console.log(Quiz)
-  }); 
-  $("#choices").on('click','li', function(){
-    //this.validate();
-  })
-};
-
-Quiz.View.prototype.clear = function(){
-  $('ul').empty();
-  $(".question").empty();
-};
-
-Quiz.View.prototype.endGame = function(){
-  $('body')
-  .css('background-color', 'black')                               //background change
-  .css('background-image', 'url(images/final-background.jpg)');   
-
-  $(".question").empty().append("<h2>Thank you for playing!</h2>"); //empty questions
   
-  $("ul").append("your score is: " + this.score + "/" + this.length);
-
-  $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
-  $('.btn1').click(Quiz.newGame);
 };
 
+
+Quiz.View.prototype.startQuiz = function(){
+    $('.question').append('<p>' + "OOOOOH" + '</p>');
+    console.log(Quiz)
+};
 
 /*--------------------------------------------
 CONTROLLER
 ----------------------------------------------*/
-Quiz.Controller = function(model,view){
- console.log(model);
- console.log(view);
+Quiz.Controller = function(){
+  
 };
 
+
+
+/*
 Quiz.Controller.prototype.question = function(model,view){
   $(".btn1") ? $(".btn1").hide() : false;
   
@@ -134,6 +130,8 @@ Quiz.Controller.prototype.newGame = function(model,view){
     this.currentQuestion = 0;
     this.question();                                             
 };
+*/
+
 
 document.addEventListener('DOMContentLoaded', function(){
   var model = new Quiz.Model();
