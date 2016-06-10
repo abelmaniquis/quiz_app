@@ -59,9 +59,9 @@ checks to see if answer is correct.
 Model:
 ------------------------------------------------------*/
 
-questionarray.Model = function(){
-  var score = 0;
-  var currentQuestion = 0;
+questionarray.Model = function(score,currentQuestion){
+  this.score = score;
+  this.currentQuestion = currentQuestion;
 }
 
 questionarray.Model.validate = function(score,currentQuestion){
@@ -72,17 +72,12 @@ questionarray.Model.validate = function(score,currentQuestion){
   }
 currentQuestion++; //currentQuestion iterates
 clear(currentQuestion);           //clear all current items from the game
-question();        //load next question
+question(this.score,this.currentQuestion);        //load next question
 }
 
 /*--------------------------------------------------------------
 VIEW
 --------------------------------------------------------------*/
-
-questionarray.Model = function(){
-  var score = 0;
-  var currentQuestion = 0;
-}
 
 questionarray.View = function(){
   this.initialState();
@@ -101,7 +96,7 @@ function clear() {
   $(".question").empty();   //clears the question
 }
 
-function endGame() {
+function endGame(score) {
   $('body')
     .css('background-color', 'black')                               //background change
     .css('background-image', 'url(images/final-background.jpg)');   
@@ -117,8 +112,8 @@ function endGame() {
 /*-------------------------------------------
 CONTROLLER
 --------------------------------------------*/
-function question(currentQuestion) {
-
+function question(score,currentQuestion) {
+console.log(score);
   $(".btn1") ? $(".btn1").hide() : false;           //ternary operator. if btn1 exists, hide btn1, else, keep it there
 
   if (currentQuestion < questionarray.length) {     // If the current question's index is less than the number of questions
@@ -130,7 +125,7 @@ function question(currentQuestion) {
       i ++;
     }
   } else {
-    endGame();
+    endGame(score);
   }
 }
 
@@ -144,6 +139,6 @@ function newGame(score,currentQuestion){
 };
 
 document.addEventListener('DOMContentLoaded', function(){
-  var model = new questionarray.Model();
+  var model = new questionarray.Model(0,0);
   var view = new questionarray.View();
 });
