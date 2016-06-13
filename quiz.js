@@ -1,10 +1,9 @@
   "use strict";
   
-/*-----------------------------------------------------
-MODEL:
-------------------------------------------------------*/
+//model
 
-  
+  var score = 0;
+  var currentQuestion = 0;
   var questionarray = [{
   statement: 'According to Batman Vol.1 #673, how long did Bruce Wayne train with "Ninja shadow masters" in the far east?',
   choices: ["one year", "two years", "five years", "eight years"],
@@ -54,49 +53,69 @@ MODEL:
   answer: "The Bat-Bunker"
 }];
 
-/*-----------------------------------------------------
-checks to see if answer is correct.
-Model:
-------------------------------------------------------*/
+/*--------------------------------------------------------------
+opening screen
+View
+--------------------------------------------------------------*/
+initialState();
 
-questionarray.Model = function(score,currentQuestion){
-  this.score = score;
-  this.currentQuestion = currentQuestion;
+function initialState() {
+  $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
+  $(".btn1").click(question);             //when .btn1 is clicked, it loads the question function.
+  $('#choices').on('click', 'li', function () { //when an li element is clicked, 
+    validate.apply(this); // Run the validate function on the InitialState
+  });
+};
+/*-----------------------------------------
+removes the answer list and the question
+controller:
+-------------------------------------------*/
+function clear() {
+  $('ul').empty();  //empties the answer list
+  $(".question").empty();   //clears the question
 }
 
-questionarray.Model.validate = function(score,currentQuestion){
+/*-------------------------------------------
+places question into the game
+Controllwe:
+--------------------------------------------*/
+function question() {
+
+  $(".btn1") ? $(".btn1").hide() : false;           //ternary operator. if btn1 exists, hide btn1, else, keep it there
+
+  if (currentQuestion < questionarray.length) {     // If the current question's index is less than the number of questions
+    $('.question').text(questionarray[currentQuestion].statement);            // changes the question to the next one
+    var i = 0                                                                 //iterates through the next loop
+    while(i < questionarray[currentQuestion].choices.length)                  //loop through number of questions
+    {
+      $('#choices').append("<li>" + questionarray[currentQuestion].choices[i] + "</li>"); //choices get listed
+      i ++;
+    }
+  } else {
+    endGame();
+  }
+}
+/*------------------------------------------------
+checks to see if answer is correct.
+Model:
+------------------------------------------------*/
+
+function validate() {
   if (currentQuestion > questionarray.length) { //If the question number exceeds the number of questions
     return 0;                                     //return 0;
   }else if ($(this).html() === questionarray[currentQuestion].answer) { //If the element represented is equal to the answer
     score++;    // add to the score.
   }
 currentQuestion++; //currentQuestion iterates
-clear(currentQuestion);           //clear all current items from the game
-question(this.score,this.currentQuestion);        //load next question
+clear();           //clear all current items from the game
+question();        //load next question
 }
 
-/*--------------------------------------------------------------
-VIEW
---------------------------------------------------------------*/
-
-questionarray.View = function(){
-  this.initialState();
-};
-
-questionarray.View.prototype.initialState = function(){
-  $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
-  $(".btn1").click(question);             //when .btn1 is clicked, it loads the question function.
-  $('#choices').on('click', 'li', function () { //when an li element is clicked, 
-    this.validate.apply(this); // Run the validate function on the InitialState
-  });
-};
-
-function clear() {
-  $('ul').empty();  //empties the answer list
-  $(".question").empty();   //clears the question
-}
-
-function endGame(score) {
+/*----------------------------------
+Posts final screen
+View
+---------------------------------*/
+function endGame() {
   $('body')
     .css('background-color', 'black')                               //background change
     .css('background-image', 'url(images/final-background.jpg)');   
@@ -109,27 +128,12 @@ function endGame(score) {
   $('.btn1').click(newGame);
 };
 
-/*-------------------------------------------
-CONTROLLER
---------------------------------------------*/
-function question(score,currentQuestion) {
-console.log(score);
-  $(".btn1") ? $(".btn1").hide() : false;           //ternary operator. if btn1 exists, hide btn1, else, keep it there
+/*---------------------------------------------------------
+starts the game over
+Model
+-----------------------------------------------------------*/
 
-  if (currentQuestion < questionarray.length) {     // If the current question's index is less than the number of questions
-    $('.question').text(questionarray[currentQuestion].statement);            // changes the question to the next one
-    var i = 0                                                                 //iterates through the next loop
-    while(i < questionarray[currentQuestion].choices.length)                  //loop through number of questions
-    {
-      $('#choices').append("<li>" + questionarray[currentQuestion].choices[i] + "</li>"); //choices get listed
-      i ++;
-    }
-  } else {
-    endGame(score);
-  }
-}
-
-function newGame(score,currentQuestion){
+function newGame(){
   $('body').css('background-color','#404040')               //revert background
     .css('background-image','url(images/2016_logo.jpg)');   //revert background
     clear();                                                //clear form, reset score and questions
@@ -137,8 +141,3 @@ function newGame(score,currentQuestion){
     currentQuestion = 0;
     question();                                             //Loads next question (question 1, since currentQuestion has been reset)
 };
-
-document.addEventListener('DOMContentLoaded', function(){
-  var model = new questionarray.Model(0,0);
-  var view = new questionarray.View();
-});

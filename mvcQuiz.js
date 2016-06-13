@@ -1,5 +1,6 @@
-
-var Quiz = [{
+  "use strict";
+  
+  var questionarray = [{
   statement: 'According to Batman Vol.1 #673, how long did Bruce Wayne train with "Ninja shadow masters" in the far east?',
   choices: ["one year", "two years", "five years", "eight years"],
   answer: "two years"
@@ -42,99 +43,18 @@ var Quiz = [{
   choices: ["Hawkman", "Superman", "Green Lantern", "All of the above"],
   answer: "All of the above"
 }, {
-  statement: "During his time as Batman, Dick Grayson did not use the prime Batcave beneath Wayne Manor but instead used a similar facility Bruce had once kept in the sub-basement of the Wayne Foundation central building. What did Dick call his secret lair?",
+  statement: "During his time as Batman, Dick Grayson did not use the prime Batcav beneath Wayne Manor but instead used a similar facility Bruce had once kept in the sub-basement of the Wayne Foundation central building. What did Dick call his secret lair?",
   choices: ["Batcave II", "Neo-Batcave", "The Bat-Bunker", "Batcave Beta"],
   answer: "The Bat-Bunker"
 }];
-/*-----------------------------------------------------
-MODEL
--------------------------------------------------------*/
 
-Quiz.Model = function(){
-this.score = 0;
-this.currentQuestion = 0;
+function thisQuestion(){
+  return this[0]
 };
 
-Quiz.Model.prototype.validate = function(quiz){ //This is the part to figure out
-  if(this.currentQuestion > this.length){
-    return 0;
-  }
-  else if($(this).html() === quiz[this.currentQuestion].answer){
-   this.score++;
-  }
-this.currentQuestion++;
-this.clear();
-this.question();
+function askQuestion(){
+  var ask = thisQuestion.call(this);
+  console.log(ask);
 };
 
-/*----------------------------------------------
-VIEW
------------------------------------------------*/
-
-Quiz.View = function(){
-    this.initialState();
-  $(".btn1").click(function()
-  { 
-    $('.question').empty();
-    $('.question').append('<p>' + Quiz[0].statement + '</p>');
-  });
-    $("#choices").on('click','li', function(){
-    this.moveQuestion();
-  })
-    
-};
-
-Quiz.View.prototype.initialState = function(){
-  var i = 0;
-  console.log(this);
-  $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start to play.</p>");
-  
-};
-
-
-Quiz.View.prototype.startQuiz = function(){
-    $('.question').append('<p>' + "OOOOOH" + '</p>');
-    console.log(Quiz)
-};
-
-/*--------------------------------------------
-CONTROLLER
-----------------------------------------------*/
-Quiz.Controller = function(){
-  
-};
-
-
-
-/*
-Quiz.Controller.prototype.question = function(model,view){
-  $(".btn1") ? $(".btn1").hide() : false;
-  
-  if(model.currentQuestion < this.length){
-    $('.question').text(this[model.currentQuestion].choices.length)
-    var i = 0;
-    while(i < Quiz[this.currentQuestion].choices.length){
-      $('#choices').append('<li>' + this[this.currentQuestion].choices[i] + "</li>");
-      i++;
-    }
-  }else{
-    this.endGame;
-  };
-};
-
-Quiz.Controller.prototype.newGame = function(model,view){
-   $('body').css('background-color','#404040')
-   .css('background-image','url(images/2016_logo.jpg)');   //revert background
-    this.clear();                                                //clear form, reset score and questions
-    this.score = 0;
-    this.currentQuestion = 0;
-    this.question();                                             
-};
-*/
-
-
-document.addEventListener('DOMContentLoaded', function(){
-  var model = new Quiz.Model();
-  var view = new Quiz.View();
-  var controller = new Quiz.Controller(model,view);
-});
+askQuestion.call(questionarray)
