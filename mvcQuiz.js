@@ -47,14 +47,30 @@
   choices: ["Batcave II", "Neo-Batcave", "The Bat-Bunker", "Batcave Beta"],
   answer: "The Bat-Bunker"
 }];
+questionarray.Model = function(){
+  
+};
+
+questionarray.View = function(){
+  
+};
+
+questionarray.Controller = function(){
+  
+}
+
 
 function thisQuestion(){
-  return this[0]
+  return this
 };
 
 function askQuestion(){
-  var ask = thisQuestion.call(this);
+  var i = 0
+  while(i < 10){
+  var ask = thisQuestion.call(this[0]);
   console.log(ask);
+  i+= 1;
+  }
 };
 
 askQuestion.call(questionarray)
