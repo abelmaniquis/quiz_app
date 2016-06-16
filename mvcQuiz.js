@@ -55,9 +55,16 @@ questionarray.Model = function(){
 questionarray.View = function(){
    $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
    $(".btn1").click(function(){
-     $("#game").append("Hello from the View Function.");
-   })
+     console.log(this);
+     listQuestionsInConsole.call(questionarray)
+     });
 };
+
+
+
+questionarray.View.prototype.appendItem = function(){
+  $("#game").append("From the view ");
+}
 
 questionarray.Controller = function(){
   
@@ -68,7 +75,7 @@ function testLog(){
   return this
 };
 
-function listQuestions(){
+function listQuestionsInConsole(){
   var i = 0
   while(i < 10){
   var ask = testLog.call(this[questionarray.length - 1]);
@@ -76,10 +83,9 @@ function listQuestions(){
   i+= 1;
   }
 };
-
-listQuestions.call(questionarray)
 //End of temporary function
 
-document.addEventListener('DOMContentLoaded', function() { 
+document.addEventListener('DOMContentLoaded', function() {
+    var model = new questionarray.Model();
     var view = new questionarray.View();
 });
