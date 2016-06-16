@@ -48,18 +48,29 @@
   answer: "The Bat-Bunker"
 }];
 questionarray.Model = function(){
-  
+  this.score = 0;
+  this.currentQuestion = 0;
 };
 
+
+
 questionarray.View = function(){
-  
+  this.initialState();
 };
+
+questionarray.View.prototype.initialState = function(){
+  $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
+  //$(".btn1").click(question);             //when .btn1 is clicked, it loads the question function.
+  //$('#choices').on('click', 'li', function () { //when an li element is clicked, 
+  //  validate.apply(this); // Run the validate function on the InitialState
+  //});
+}
 
 questionarray.Controller = function(){
   
 }
 
-
+//Temporary function to play around with the data:
 function thisQuestion(){
   return this
 };
@@ -74,3 +85,8 @@ function askQuestion(){
 };
 
 askQuestion.call(questionarray)
+
+
+document.addEventListener('DOMContentLoaded', function() { //Everything is put together in this part of the program
+    var view = new questionarray.View('uppercase','apple');
+});
