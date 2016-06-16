@@ -52,41 +52,34 @@ questionarray.Model = function(){
   this.currentQuestion = 0;
 };
 
-
-
 questionarray.View = function(){
-  this.initialState();
+   $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
+   $(".btn1").click(function(){
+     $("#game").append("Hello from the View Function.");
+   })
 };
-
-questionarray.View.prototype.initialState = function(){
-  $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
-  //$(".btn1").click(question);             //when .btn1 is clicked, it loads the question function.
-  //$('#choices').on('click', 'li', function () { //when an li element is clicked, 
-  //  validate.apply(this); // Run the validate function on the InitialState
-  //});
-}
 
 questionarray.Controller = function(){
   
 }
 
-//Temporary function to play around with the data:
-function thisQuestion(){
+//Temporary function. Console logs the quiz:
+function testLog(){
   return this
 };
 
-function askQuestion(){
+function listQuestions(){
   var i = 0
   while(i < 10){
-  var ask = thisQuestion.call(this[0]);
+  var ask = testLog.call(this[questionarray.length - 1]);
   console.log(ask);
   i+= 1;
   }
 };
 
-askQuestion.call(questionarray)
+listQuestions.call(questionarray)
+//End of temporary function
 
-
-document.addEventListener('DOMContentLoaded', function() { //Everything is put together in this part of the program
+document.addEventListener('DOMContentLoaded', function() { 
     var view = new questionarray.View();
 });
