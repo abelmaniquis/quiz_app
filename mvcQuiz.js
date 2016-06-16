@@ -88,5 +88,5 @@ askQuestion.call(questionarray)
 
 
 document.addEventListener('DOMContentLoaded', function() { //Everything is put together in this part of the program
-    var view = new questionarray.View('uppercase','apple');
+    var view = new questionarray.View();
 });
