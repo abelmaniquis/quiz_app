@@ -1,6 +1,12 @@
   "use strict";
+$(document).ready(loadQuiz)
+
+function loadQuiz(){
   
-  var questionarray = [{
+  var model = {
+    score: 0,
+    currentquestion: 0,
+    questionarray: [{
   statement: 'According to Batman Vol.1 #673, how long did Bruce Wayne train with "Ninja shadow masters" in the far east?',
   choices: ["one year", "two years", "five years", "eight years"],
   answer: "two years"
@@ -46,46 +52,53 @@
   statement: "During his time as Batman, Dick Grayson did not use the prime Batcav beneath Wayne Manor but instead used a similar facility Bruce had once kept in the sub-basement of the Wayne Foundation central building. What did Dick call his secret lair?",
   choices: ["Batcave II", "Neo-Batcave", "The Bat-Bunker", "Batcave Beta"],
   answer: "The Bat-Bunker"
-}];
-questionarray.Model = function(){
-  this.score = 0;
-  this.currentQuestion = 0;
-};
-
-questionarray.View = function(){
-   $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
-   $(".btn1").click(function(){
-     console.log(this);
-     listQuestionsInConsole.call(questionarray)
-     });
-};
-
-
-
-questionarray.View.prototype.appendItem = function(){
-  $("#game").append("From the view ");
+}]
+    
 }
+  
+  var view = {
+    initialState: function(){
+      $(".question").append("<h2>Welcome to the Batman Quiz App</h2>").append("<p>Click 'Start' to play.</p>"); //appends introduction
+      $(".btn1").click(function(){
+        controller.question()
+      });
+    },
+    endGame: function(){
+      
+    $('body')
+    .css('background-color', 'black')                               //background change
+    .css('background-image', 'url(images/final-background.jpg)');   
 
-questionarray.Controller = function(){
+    $(".question").empty().append("<h2>Thank you for playing!</h2>"); //empty questions
+  
+    $("ul").append("your score is: " + model.score + "/" + model.questionarray.length);
+
+    $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
+    //$('.btn1').click(newGame);
+      
+    }
+  }
+  
+  var controller = {
+    question: function(){
+     console.log(model);
+  $(".btn1") ? $(".btn1").hide() : false;           //ternary operator. if btn1 exists, hide btn1, else, keep it there
+
+    if (model.currentQuestion < model.questionarray.length) {     // If the current question's index is less than the number of questions
+      $('.question').text(model.questionarray[model.currentQuestion].statement);            // changes the question to the next one
+    var i = 0                                                                 //iterates through the next loop
+    while(i < model.questionarray[model.currentQuestion].choices.length)                  //loop through number of questions
+    {
+      $('#choices').append("<li>" + model.questionarray[model.currentQuestion].choices[i] + "</li>"); //choices get listed
+      i ++;
+    }
+  } else {
+    view.endGame();
+  }
+      
+    }
+  }
+
+  view.initialState();
   
 }
-
-//Temporary function. Console logs the quiz:
-function testLog(){
-  return this
-};
-
-function listQuestionsInConsole(){
-  var i = 0
-  while(i < 10){
-  var ask = testLog.call(this[questionarray.length - 1]);
-  console.log(ask);
-  i+= 1;
-  }
-};
-//End of temporary function
-
-document.addEventListener('DOMContentLoaded', function() {
-    var model = new questionarray.Model();
-    var view = new questionarray.View();
-});
