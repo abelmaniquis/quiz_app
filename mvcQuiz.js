@@ -72,7 +72,7 @@ function loadQuiz(){
     $("ul").append("your score is: " + model.score + "/" + model.questionarray.length);
 
     $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
-    //$('.btn1').click(newGame);
+    $('.btn1').click(controller.newGame);
     },
     clear: function(){
       $('ul').empty();
@@ -90,11 +90,11 @@ function loadQuiz(){
          var i = 0
          while(i < model.questionarray[model.currentquestion].choices.length)
          {
-            $('#choices').append("<li>" + model.questionarray[model.currentquestion].choices[i] + "</li>");
+           $('#choices').append("<li>" + model.questionarray[model.currentquestion].choices[i] + "</li>");
            i ++;
          }
       }else{
-        view.endGame;
+        view.endGame();
       }
       
     },
@@ -107,6 +107,14 @@ function loadQuiz(){
       model.currentquestion++;
       view.clear();
       controller.question();
+    },
+    newGame: function(){
+      $('body').css('background-color','#404040')               //revert background
+      .css('background-image','url(images/2016_logo.jpg)');   //revert background
+      controller.clear();                                                //clear form, reset score and questions
+      model.score = 0;
+      model.currentQuestion = 0;
+      controller.question();  
     }
     
   } //End controller object
