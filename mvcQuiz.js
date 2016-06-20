@@ -58,6 +58,9 @@ function loadQuiz(){
       $(".btn1").click(function(){
         controller.question()
       });
+      $('#choices').on('click','li', function(){
+        controller.validate.apply(this);
+      });
     },
     endGame: function(){
     $('body')
@@ -70,17 +73,43 @@ function loadQuiz(){
 
     $('#button_container').append("<input type='button' class='btn1' value='Play Again'></input>");
     //$('.btn1').click(newGame);
+    },
+    clear: function(){
+      $('ul').empty();
+      $('.question').empty();
     }
-  }
+  } //End view object
   
   var controller = {
+    
     question: function(){
-      $('.question').text(model.questionarray[model.currentquestion].statement);
-     console.log(model.questionarray[model.currentquestion]);
+       $(".btn1") ? $(".btn1").hide() : false;
+       
+      if(model.currentquestion < model.questionarray.length){
+        $('.question').text(model.questionarray[model.currentquestion].statement);
+         var i = 0
+         while(i < model.questionarray[model.currentquestion].choices.length)
+         {
+            $('#choices').append("<li>" + model.questionarray[model.currentquestion].choices[i] + "</li>");
+           i ++;
+         }
+      }else{
+        view.endGame;
+      }
       
-      
+    },
+    validate: function(){
+      if (model.currentquestion > model.questionarray.length){
+        return 0;
+      }else if ($(this).html() === model.questionarray[model.currentquestion].answer){
+        model.score++;
+      }
+      model.currentquestion++;
+      view.clear();
+      controller.question();
     }
-  }
+    
+  } //End controller object
 
   view.initialState();
   

@@ -77,7 +77,7 @@ function clear() {
 
 /*-------------------------------------------
 places question into the game
-Controllwe:
+Controller:
 --------------------------------------------*/
 function question() {
 
@@ -130,7 +130,7 @@ function endGame() {
 
 /*---------------------------------------------------------
 starts the game over
-Model
+Controller
 -----------------------------------------------------------*/
 
 function newGame(){
